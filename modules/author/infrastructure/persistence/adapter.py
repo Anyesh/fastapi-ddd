@@ -22,6 +22,5 @@ class AuthorPersistenceAdapter(BaseUseCase[AuthorPersistenceUnitOfWork], Persist
 
     @async_transactional()
     async def delete_by_id(self, _id: AuthorId):
-        author = self.uow.repository.find_by_pk(_id)
-        if author:
+        if author := self.uow.repository.find_by_pk(_id):
             await self.uow.repository.delete(author)
